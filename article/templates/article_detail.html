@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% block body %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+          <h1 class="center">Article Detail</h1>
+          <hr>
+          <div class="row">
+
+ 
+            <div class="col-md-8">
+          
+              <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="{{detail.image.url}}" width="200px" height="200px" alt="Card image cap"><br>
+                <small class="text-muted">Views: {{detail.visit}}</small>
+                <div class="card-body">
+                  <h2 style="font-size:18px;font-weight:bold">{{detail.title}}</h2>
+                  <h3 style="font-size:18px;font-weight:bold">{{detail.date}}</h3>
+                  <p class="card-text" cols="50" rows="20">{{detail.body}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    {% if detail.diffNowDate <= 1 %}
+                    <small class="text-muted">published: Today</small>
+                    {% else %}
+                    <small class="text-muted">published: {{detail.diffNowDate}} days ago</small>
+                    {% endif %}
+                    
+                  </div>
+                </div>
+              </div>
+              </a>
+            </div>
+
+
+          </div>
+
+
+          <div>
+            <hr>
+            <h3>Coments</h3>
+            {% for comment in comments  %}
+            <small class="text-muted">{{comment.user}}</small>
+            <p>Tiltle: {{comment.title}}</p>
+            <p>Message: {{comment.message}}</p>
+            <small class="text-muted">{{comment.date}}</small>
+            <hr>
+            {% endfor %}
+          </div>
+
+            {% if request.user.is_authenticated   %}
+            <form action="{%url 'article:article_detail' slug=detail.slug %}" method="post">
+              {% csrf_token %}
+              {{voite}}
+              <input type="submit" value="Voite">
+              
+            </form>
+          <form action="{%url 'article:article_detail' slug=detail.slug %}" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Send">
+          </form>
+   
+        {% endif %}
+        </div>
+      </div>
+      {% endblock body %}
+
+
+ 

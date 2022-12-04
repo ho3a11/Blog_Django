@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+
+
+{% block body %}
+<div class="col-12 pb-5"><h1> List of {{cat}} Article</h1></div>
+   <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+    {% if articles %}
+    {% for article in articles %}
+        <div class="col-md-4">
+          <small class="text-muted">Views: {{article.visit}}</small>
+        <a class="text-dark" href="{% url 'article:article_detail' slug=article.slug %}">
+          
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" src="{{article.image.url}}" width="200px" height="200px" alt="Card image cap">
+            <div class="card-body">
+              <h2 style="font-size:18px;font-weight:bold">{{article.title|truncatechars:50}}</h2>
+              <p class="card-text">{{article.body|truncatechars:50}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                {% if article.diffNowDate <= 1 %}
+                <small class="text-muted">published: Today</small>
+                {% else %}
+                <small class="text-muted">published: {{article.diffNowDate}} days ago</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          </a>
+        </div>
+    {% endfor %}
+    {% else %}
+
+    <div class="col-md-4">
+     
+      <h3>Sorry :(</h3><br>
+      <h5> No article was found in this category </h5>
+        
+      </div>
+
+    {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+class voite_user(models.Model):
+    STATUS_CHOICE = [
+    ('5', "Excellent"),
+    ('4', "Very Good"),
+    ('3', "Not Bad"),
+    ('2', "Bad"),
+    ('1', "Very Bad"),
+]
+    voite = models.CharField(max_length=1, choices=STATUS_CHOICE, default=5)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return  self.user.username + '-->' + self.voite

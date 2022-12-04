@@ -1,0 +1,123 @@
+
+{% extends "base1.html" %}
+
+{% load static %}
+
+
+{% block slider %}
+
+        {% include "slider.html" %}
+     
+
+{% endblock slider %}
+
+
+
+{% block article %}
+          {% if visit %}
+                  {% for v in voite  %}
+
+                  <div class="col-md-12 margin-top-30">
+                    <h2 class="item-title">
+                      Articles with the highest ratings from users
+                    </h2>
+                    <a class="text-dark" href="{% url 'article:article_detail' slug=v.article.slug %}">
+                    <p>
+                        <img class="animate fadeInRight" style="float: right;" src="{{v.article.image.url}}" alt="responsive screens"> {{v.article.title}}</p>
+                      </a>
+                    <p>{{v.article.snipBody}}</p>
+
+                    <p class="card-text">Voite :{{v.voite}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">{{v.article.diffNowDate}} Days </small>
+                    
+                  </div>
+                  <div class="clearfix"></div>
+                    
+                  {% endfor %}
+                  {% endif %}
+
+{% endblock article %}
+
+{% block most_view %}
+
+                    <div class="row">
+                      <div class="col-md-12 padding-vert-30">
+                          <h2 class="subtitle text-center">Articles with the most views from users</h2>
+
+                      </div>
+                    </div>
+                    <div class="portfolio-group">
+
+                      <!-- Portfolio Item -->
+                      {% if visit %}
+                      {% for v in visit %}
+                        
+                      <div class="portfolio-item col-md-3 col-sm-6 col-xs-6 animate fadeInUp">
+                          <div class="image-hover">
+                              <a href="{% url 'article:article_detail' slug=v.slug %}">
+                                  <figure>
+                                      <img src="{{v.image.url}}" alt="image8">
+                                      <figcaption>
+                                          <h3>{{v.visit}} views</h3>
+                                          <span>{{v.title}}</span>
+                                      </figcaption>
+                                  </figure>
+                              </a>
+                          </div>
+                      </div>
+
+                      {% endfor %}
+                      {% endif %}
+                      <!-- //Portfolio Item// -->
+                      <div class="clearfix"></div>
+                    </div>
+                      
+{% endblock most_view %}
+
+
+
+<hr>
+<hr>
+<div class="col-12 pb-5"><h1> Articles with the highest ratings from users</h1></div>
+<div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        {% if visit %}
+    {% for v in voite %}
+        <div class="col-md-4">
+        <a class="text-dark" href="{% url 'article:article_detail' slug=v.article.slug %}">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" src="{{v.article.image.url}}" width="200px" height="200px" alt="Card image cap">
+            <div class="card-body">
+              <h2 style="font-size:18px;font-weight:bold">{{v.article.title}}</h2>
+              <p class="card-text">Voite :{{v.voite}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{v.article.diffNowDate}} Days </small>
+              </div>
+            </div>
+          </div>
+          </a>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+
+      <hr>
+      <hr>
+      <div class="col-12 pb-5"><h1> Articles with the most views from users</h1></div>
+      <div class="album py-5 bg-light">
+          <div class="container">
+            <div class="row">
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+<a href="{% url 'article:show_article' %}">Go to Articles</a>
+
+

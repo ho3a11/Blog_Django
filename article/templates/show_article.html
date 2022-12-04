@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articlea</title>
+</head>
+<body>
+    <h1>All Articles in site</h1>
+    <hr>
+    {% for art in articles  %}
+        <a href="{% url 'article:article_detail' slug=art.slug %}">{{art.title}}</a>
+        <p>{{art.date}}</p>
+        <textarea name="" id="" cols="70" rows="10"> {{art.snipBody}}</textarea> 
+        <hr>
+    {% endfor %}
+   
+</body>
+</html>
