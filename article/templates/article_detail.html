@@ -1,6 +1,6 @@
 
-{% extends "base.html" %}
-{% block body %}
+{% extends "base1.html" %}
+{% load static %}
     <div class="album py-5 bg-light">
         <div class="container">
           <h1 class="center">Article Detail</h1>
@@ -62,7 +62,287 @@
         {% endif %}
         </div>
       </div>
-      {% endblock body %}
+
+
+
+  {% block body %}
+
+
+      
+
+                <div class="container">
+                 
+                    <!-- ============================================== BEGIN CONTENT ================================================ -->
+                    <div class="row margin-vert-30">
+                        <!-- Main Column -->
+                        <div class="col-md-9">
+                            <div class="blog-post">
+                                <div class="blog-item-header">
+                                    <div class="blog-post-date pull-left">
+                                        <span class="day">14</span>
+                                        <span class="month">Dec</span>
+                                    </div>
+                                    <h2>
+                                        
+                                          {{detail.title}}
+                                        
+                                    </h2>
+                                    <div class="blog-post-details">
+                                        <!-- Author Name -->
+                                        <div class="blog-post-details-item blog-post-details-item-left user-icon">
+                                            <i class="fa fa-user"></i>
+                                            <a href="#">{{detail.publisher}}</a>
+                                        </div>
+                                        <!-- End Author Name -->
+                                        <!-- Tags -->
+                                        <div class="blog-post-details-item blog-post-details-item-left blog-post-details-tags tags-icon">
+                                            <i class="fa fa-tag"></i>
+                                            <a href="#">tag</a>,
+                                            <a href="#">tag2</a>,
+                                            <a href="#">CoffeeScript</a>
+                                        </div>
+                                        <!-- End Tags -->
+                                        <!-- # of Comments -->
+                                        <div class="blog-post-details-item blog-post-details-item-left blog-post-details-item-last comments-icon">
+                                            <a href="">
+                                                <i class="fa fa-comments"></i>
+                                                {{count_com}}
+                                            </a>
+                                        </div>
+                                        <!-- End # of Comments -->
+                                    </div>
+                                </div>
+                                <div class="blog-item">
+                                    <div class="clearfix"></div>
+                                    <div class="blog-post-body row margin-top-15">
+                                        <div class="col-md-5">
+                                            <img class="pull-left" src="{{detail.image.url}}" alt="image1">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <p> {{detail.title}}</p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p>
+                                              {{detail.body}}
+                                                </p>
+                                            <blockquote class="primary">
+                                                <p>
+                                                    <em>"for qout"</em>
+                                                </p>
+                                                <small>
+                                                    Someone famous in
+                                                    <cite title="Source Title">Source Title</cite>
+                                                </small>
+                                            </blockquote>
+
+                                        </div>
+                                    </div>
+                                    <div class="blog-item-footer">
+
+                                      
+
+                                        <!-- ****************************************About the Author*********************************** -->
+                                        <div class="blog-author panel panel-default margin-bottom-30">
+                                            <div class="panel-heading">
+                                                <h3>About the Publisher</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <img class="pull-left" src="{% static 'imgsite/publisher_pic.png' %}" alt="">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label>Name: {{detail.publisher.first_name}} </label>
+                                                        <p>Lorem ipsum dolor sit amet, in pri offendit ocurreret. Vix sumo ferri an. pfs adodio fugit delenit ut qui. Omittam suscipiantur ex vel,ex audiam intellegat gfIn labitur discere eos, nam an feugiat
+                                                            voluptua.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- End About the Author -->
+                                        <!-- ========================================Comments==================================================== -->
+
+                                        <div class="blog-recent-comments panel panel-default margin-bottom-30">
+                                            <div class="panel-heading">
+                                                <h3>Comments</h3>
+                                            </div>
+                                            <ul class="list-group">
+                                              {% for comment in comments  %}
+                                                
+                                              
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-md-2 profile-thumb">
+                                                            <a href="#">
+                                                                <img class="media-object" src="{% static 'imgsite/user_pic.png' %}" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                          <h3>{{comment.user}}</h3>
+                                                            <h4>{{comment.title}}</h4>
+                                                            <p>{{comment.message}}</p>
+                                                            <span class="date">
+                                                                <i class="fa fa-clock-o"></i>{{comment.date}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+
+
+                                                <!-- Comment Form -->
+                                                <li class="list-group-item">
+                                                    <div class="blog-comment-form">
+                                                        <div class="row margin-top-20">
+                                                            <div class="col-md-12">
+                                                                <div class="pull-left">
+                                                                    <h3>Send a Comment</h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row margin-top-20">
+                                                            <div class="col-md-12">
+
+                                                              {% if request.user.is_authenticated   %}
+                                                                  <form action="{%url 'article:article_detail' slug=detail.slug %}" method="post">
+                                                                    {% csrf_token %}
+                                                                    {{voite}}
+                                                                    <input type="submit" value="Voite">
+                                                                    
+                                                                  </form>
+
+
+                                                              <form action="{%url 'article:article_detail' slug=detail.slug %}" method="post">
+                                                                {% csrf_token %}
+                                                                {{form.as_p}}
+                                                                <input type="submit" value="Send">
+                                                              </form>
+                                                              {%endif%}
+
+
+                                                                <!-- <form>
+                                                                    <label>Name</label>
+                                                                    <div class="row margin-bottom-20">
+                                                                        <div class="col-md-7 col-md-offset-0">
+                                                                            <input class="form-control" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <label>Email
+                                                                        <span>*</span>
+                                                                    </label>
+                                                                    <div class="row margin-bottom-20">
+                                                                        <div class="col-md-7 col-md-offset-0">
+                                                                            <input class="form-control" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <label>Message</label>
+                                                                    <div class="row margin-bottom-20">
+                                                                        <div class="col-md-11 col-md-offset-0">
+                                                                            <textarea class="form-control" rows="8"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>
+                                                                        <button class="btn btn-primary" type="submit">Send Message</button>
+                                                                    </p>
+
+
+
+                                                                </form> -->
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!-- End Comment Form -->
+                                            </ul>
+                                        </div>
+                                        <!-- End Comments -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- =========================================End Blog Post=========================================== -->
+
+
+                        </div>
+
+
+                        <!-- End Main Column -->
+                        <!-- Side Column -->
+                        <div class="col-md-3 margin-top-30">
+                            <!-- ======================================Blog Tags================================================ -->
+                            <div class="blog-tags">
+                                <h3>Tags</h3>
+                                <ul class="blog-tags">
+                                    <li>
+                                        <a href="#" class="blog-tag">HTML</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">CSS</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">JavaScript</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">jQuery</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">PHP</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">Ruby</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">CoffeeScript</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">Grunt</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">Bootstrap</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="blog-tag">HTML5</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Blog Tags -->
+
+
+                            
+                            <!-- ===============================================Recent Posts======================================= -->
+                            <div class="recent-posts">
+                                <h3>Recent Posts</h3>
+                                <ul class="posts-list margin-top-10">
+                                  {% for res in recent  %}
+
+                                    <li>
+                                        <div class="recent-post">
+                                            <a href="">
+                                                <img class="pull-left" src="{{res.image.url}}" alt="thumb1">
+                                            </a>
+                                            <a href="{%url 'article:article_detail' slug=res.slug %}" class="posts-list-title">{{res.title}}</a>
+                                            <br>
+                                            <span class="recent-post-date">
+                                               {{res.date}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <!-- End Recent Posts -->
+                            <!-- End Side Column -->
+                        </div>
+
+                        </div>
+                    </div>
+                    <!-- ====================================================== END CONTENT ====================================================== -->
+
+        {% endblock body %}
 
 
  

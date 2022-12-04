@@ -154,6 +154,7 @@
                         
                         <!-- End Top Menu -->
                     </div>
+
                     <div class="container no-padding">
                         <!-- === END HEADER === -->
                         <!-- === BEGIN CONTENT === -->
@@ -162,6 +163,7 @@
 {% block slider %}
   
 {% endblock slider %}
+
                             <!-- End Carousel Slideshow -->
                             <!-- Tabs -->
                             <div class="tabs-dark" style="padding:0;">
@@ -205,9 +207,10 @@
                                     </div>
                                 </div>
                                 <!-- End Tab Panes -->
+
+
                             </div>
                             <!-- End Tabs -->
-
 
 
                         </div>
@@ -234,20 +237,15 @@
                           
                         {% endblock most_view %}
 
-           
+                        {% block body %}
+                      
+                        {% endblock body %}
 
-                        <!-- End most_view* -->
-
-                        <div class="row">
-                            <div class="col-12-md">
-                                <p class="text-center padding-bottom-30" style="max-width:690px; margin:0 auto;">Mirum est notare quam littera gothica, quam nunc putamus. Cras non sem sem, at eleifend mi. Vivamus sit amet ante est, sit amet rutrum augue. Cras non sem sem, at eleifend mi. Nam liber tempor cum soluta nobis eleifend
-                                    option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
-                            </div>
-                        </div>
-                        <!-- End Portfolio Footer Text -->
-                        <!-- === END CONTENT === -->
-                        <!-- === BEGIN FOOTER === -->
-                    </div>
+                
+                <!-- End Portfolio Footer Text -->
+                <!-- === END CONTENT === -->
+                <!-- === BEGIN FOOTER === -->
+            </div>
                     <div id="base" class="container padding-vert-30">
                         <div class="row">
                             <!-- Disclaimer -->
@@ -263,13 +261,13 @@
                             <div class="col-md-3">
                                 <h3 class="margin-bottom-10">Contact Details</h3>
                                 <p>Quay View,
-                                    <br />Mullaghmore,
-                                    <br />Co. Sligo,
-                                    <br />Ireland
+                                    <br>Mullaghmore,
+                                    <br>Co. Sligo,
+                                    <br>Ireland
                                 </p>
                                 <p>Email:
                                     <a href="mailto:info@website.com">info@website.com</a>
-                                    <br />Website:
+                                    <br>Website:
                                     <a href="http://www.website.com">www.website.com</a>
                                 </p>
                             </div>
@@ -294,6 +292,9 @@
                             <div class="clearfix"></div>
                         </div>
                     </div>
+
+
+                    
                     <!-- Footer Menu -->
                     <div id="footermenu" class="container">
                         <div class="row">
@@ -317,6 +318,7 @@
                     <!-- End Footer Menu -->
                 </div>
             </div>
+        
             <div class="container padding-vert-30">
                 <div class="row">
                     <div id="copyright">
@@ -324,7 +326,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+
         <!-- JS -->
         <script type="text/javascript" src="{% static 'assets/js/jquery.min.js' %}" type="text/javascript"></script>
         <script type="text/javascript" src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>

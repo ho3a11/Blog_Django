@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from . models import Article,Category,Comment,voite_user
 from . import forms
 from django.contrib.auth.decorators import login_required
+import socket
 
 def show_article(request):
     res = Article.objects.all()
@@ -10,6 +11,10 @@ def show_article(request):
 
 
 def article_category(request,category):
+    
+    system = socket.gethostname()
+    IPAddr = socket.gethostbyname(system)
+    print(f'user ip is :{IPAddr}')
     artcat =  Article.objects.filter(category__title =category)
 
     context = {
@@ -61,10 +66,10 @@ def get_comment(request,detail):
 def article_detail(request, slug):
 
     detail = Article.objects.get(slug= slug)
-    print(type(detail.diffNowDate()))
     # comments = Comment.objects.filter(article=detail)
-    
+    recent = Article.objects.all().order_by('-date')[:3]
     comments = show_comment(detail)
+    count_com = len(comments)
     voite = save_voite(request,detail)
     if request.user:
         form = get_comment(request,detail)
@@ -72,7 +77,9 @@ def article_detail(request, slug):
         'detail':detail,
         'form': form ,
         'comments': comments,
-        'voite' : voite
+        'voite' : voite,
+        'count_com': count_com,
+        'recent':recent
     }
     if request.method!='POST':
             detail.visit+=1

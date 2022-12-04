@@ -1,3 +1,4 @@
+
 <div id="carousel-example" class="carousel slide" data-ride="carousel">
     <!-- Carousel Indicators -->
     <ol class="carousel-indicators">
@@ -14,8 +15,16 @@
       {% else %}
       <div class="item">
       {% endif %}
-            <img src="{{x.image.url}}">
-            <h3><a href="#">{{ x.title }}</a></h3>
+      <div class="image-hover">
+        <a href="{% url 'article:article_detail' slug=x.slug %}">
+            <figure>
+                <img src="{{x.image.url}}" alt="x.image" width="1100px" height="400px">
+                <figcaption>
+                    <span>{{x.title}}</span>
+                </figcaption>
+            </figure>
+        </a>
+    </div>
         </div>
         {% endfor %}
   
