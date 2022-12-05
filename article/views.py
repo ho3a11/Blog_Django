@@ -3,6 +3,7 @@ from . models import Article,Category,Comment,voite_user
 from . import forms
 from django.contrib.auth.decorators import login_required
 import socket
+from django.core.paginator import Paginator
 
 def show_article(request):
     res = Article.objects.all()
@@ -12,14 +13,22 @@ def show_article(request):
 
 def article_category(request,category):
     
-    system = socket.gethostname()
-    IPAddr = socket.gethostbyname(system)
-    print(f'user ip is :{IPAddr}')
-    artcat =  Article.objects.filter(category__title =category)
+    # system = socket.gethostname()
+    # IPAddr = socket.gethostbyname(system)
+    # print(f'user ip is :{IPAddr}')
+    articlecat =  Article.objects.filter(category__title =category).order_by('-date')
+    paginator = Paginator(articlecat, 2) # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    for p in page_obj:
+      print(f"saddsfsdfdsfsdf534545cdxvsads --->>> {p.date.day}")
+      
 
     context = {
         'cat': category,
-        'articles': artcat,
+        'page':page_obj
+        
     }
     return render(request,'category.html', context=context)
 

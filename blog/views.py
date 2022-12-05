@@ -36,6 +36,12 @@ def about(request):
     }
     return render(request,'about.html',context=context)
 
+def contact(request):
+    context = {
+        'name':'name'
+    }
+    return render(request,'contact.html',context=context)
+
 
 # def most_voite(request):
 #     voite = voite_user.objects.all().order_by("-voite")[:5]

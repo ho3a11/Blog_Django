@@ -1,7 +1,10 @@
 
 {% extends "base1.html" %}
 
-{% load static %}
+<!-- {% load static %} -->
+{% block title %}
+  Ho3a11 Site
+{% endblock title %}
 
 
 {% block slider %}
@@ -12,6 +15,48 @@
 {% endblock slider %}
 
 
+{% block Tab_Panes %}
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab">Home</a>
+    </li>
+    <li>
+        <a href="#profile" data-toggle="tab">Profile</a>
+    </li>
+    <li>
+        <a href="#messages" data-toggle="tab">Messages</a>
+    </li>
+</ul>
+<!-- End Tab Navigation -->
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="home">
+                                        <img style="float: left; margin-right: 25px; margin-bottom: 10px;" src="{% static 'assets/img/frontpage/filler1.jpg' %}" alt="filler image">
+                                        <h3>Humanitatis Per Seacula</h3>
+                                        <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui
+                                            sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem
+                                            modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile">
+                                        <img style="float: left; margin-right: 25px; margin-bottom: 10px;" src="{% static 'assets/img/frontpage/filler2.jpg' %}" alt="filler image">
+                                        <h3>Mirum Est Notare</h3>
+                                        <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui
+                                            sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem
+                                            modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="messages">
+                                        <img style="float: left; margin-right: 25px; margin-bottom: 10px;" src="{% static 'assets/img/frontpage/filler3.jpg' %}" alt="filler image">
+                                        <h3>Sollemnes In Futurum</h3>
+                                        <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui
+                                            sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem
+                                            modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+                                    </div>
+                                </div>
+  
+{% endblock Tab_Panes %}
+
+
 
 {% block article %}
 
@@ -19,22 +64,26 @@
     <div class="container">
       <div class="row">
           <!-- Main Article -->
+
+
           {% if visit %}
           {% for v in voite %}
           <div class="col-md-6 margin-top-30"  >
-              
-              <h3 class="item-title">
-                  {{v.article.title}}
+          <div class="panel panel-primary invert">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                {{v.article.title}}
               </h3>
-                  <img class="animate fadeInRight animated" style="float: right;" src="{{v.article.image.url}}" alt="responsive screens">
-                  <p>{{v.article.snipBody}} <a class="btn  alert-link" style="color:red;" href="{% url 'article:article_detail' slug=v.article.slug %}"> Read more... </a></p>
-              <small>voite: {{v.voite}} </small> <br>
-                  <small class="item-title">
-                    {{v.article.diffNowDate}} days
-                </small>
+            </div>
+              <div class="panel-body">
+                <img class="animate fadeInRight animated" style="float: right;" src="{{v.article.image.url}}" alt="responsive screens">
+                <p>{{v.article.snipBody}} <a class="btn  alert-link" style="color:red;" href="{% url 'article:article_detail' slug=v.article.slug %}"> Read more... </a></p>
+            </div>
           </div>
+        </div>
           {% endfor %}
           {% endif %}
+
 
           <!-- End Main Article -->
       </div>

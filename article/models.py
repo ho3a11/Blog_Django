@@ -36,7 +36,7 @@ class Article(BaseModel,models.Model):
     visit = models.IntegerField(default=0)
     
     def __str__(self):
-        return f'{self.title}  crate time : {str(self.date)}'
+        return f'{self.title}  cerate time : {str(self.date)}'
     
     def snipBody(self):
         return f'{self.body[0:50]} ...'
