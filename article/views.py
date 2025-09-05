@@ -5,12 +5,14 @@ from django.contrib.auth.decorators import login_required
 import socket
 from django.core.paginator import Paginator
 
+# Displays a list of all articles.
 def show_article(request):
     res = Article.objects.all()
     
     return render(request,'show_article.html', {'articles':res})
 
 
+# Displays articles belonging to a specific category, with pagination.
 def article_category(request,category):
     
     # system = socket.gethostname()
@@ -33,9 +35,11 @@ def article_category(request,category):
     return render(request,'category.html', context=context)
 
 
+# Retrieves comments for a given article.
 def show_comment(arg):
     return Comment.objects.filter(article=arg)
 
+# Handles saving or updating a user's vote on an article.
 def save_voite(request,detail):
     try:
         user =voite_user.objects.get(article=detail) 
@@ -60,6 +64,7 @@ def save_voite(request,detail):
         
     
 @login_required
+# Handles submitting a new comment on an article.
 def get_comment(request,detail):
     if request.method=='POST':
         form = forms.CommentForm(request.POST)
@@ -72,6 +77,7 @@ def get_comment(request,detail):
 
     return form
 
+# Displays the detail page for a single article, including comments and voting.
 def article_detail(request, slug):
 
     detail = Article.objects.get(slug= slug)

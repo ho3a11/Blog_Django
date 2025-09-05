@@ -5,6 +5,7 @@ from . forms import UserRegistrationForm,LoginForm
 # from django.contrib.auth import  authenticate, login, logout, update_session_auth_hash  
 from django.contrib.auth import login, authenticate,logout
 
+# Handles user registration. Currently uses direct HTML form data processing.
 def singup(request):
     
     #--------------------------------Create user by UserCreationForm-------------------------------
@@ -54,6 +55,7 @@ def singup(request):
 
 
 
+# Handles user login. Currently uses direct HTML form data processing.
 def login_view(request):
     # if request.method == 'POST':
     #     form = LoginForm(request.POST)
@@ -80,6 +82,7 @@ def login_view(request):
     return render(request, 'login.html')
         
 
+# Handles user logout.
 def logout_view(request):
     logout(request)
     return redirect('user_account:login')

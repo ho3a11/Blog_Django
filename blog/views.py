@@ -4,6 +4,7 @@ from django.views.generic import ListView
 import datetime
 
 
+# Renders the homepage with recent articles, most visited articles, and top-voted articles.
 def index(request):
     articles = Article.objects.all().order_by("-date")[:3]
     
@@ -22,6 +23,7 @@ def index(request):
 
 
     
+# Retrieves a list of all categories.
 def category_list(request):
     category_list = Category.objects.all()
     context = {
@@ -30,12 +32,14 @@ def category_list(request):
 
     return context
 
+# Renders the about page.
 def about(request):
     context = {
         'name':'name'
     }
     return render(request,'about.html',context=context)
 
+# Renders the contact page.
 def contact(request):
     context = {
         'name':'name'

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+# This is a base model that provides common fields and methods for other models.
 class BaseModel(models.Model):
     title = models.CharField(max_length=50)
 
@@ -11,6 +12,7 @@ class BaseModel(models.Model):
     class  Meta:
         abstract = True
         
+    # Calculates the difference in days between the object's date and the current date.
     def diffNowDate(self):
         fmt = '%Y-%m-%d'
         d1 = datetime.strptime(str(self.date.year)+'-'+str(self.date.month)+'-'+str(self.date.day), fmt)
@@ -19,12 +21,14 @@ class BaseModel(models.Model):
         return (d2-d1).days
         
 
+# Represents a category for articles.
 class Category(BaseModel):
     pass
 
 
 
 
+# Represents an article.
 class Article(BaseModel,models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
@@ -38,9 +42,11 @@ class Article(BaseModel,models.Model):
     def __str__(self):
         return f'{self.title}  cerate time : {str(self.date)}'
     
+    # Returns a snippet of the article body.
     def snipBody(self):
         return f'{self.body[0:50]} ...'
     
+    # Calculates the difference in days between the article's publication date and the current date.
     def diffNowDate(self):
         fmt = '%Y-%m-%d'
         d1 = datetime.strptime(str(self.date.year)+'-'+str(self.date.month)+'-'+str(self.date.day), fmt)
@@ -49,6 +55,7 @@ class Article(BaseModel,models.Model):
         return (d2-d1).days
     
     
+# Represents a comment on an article.
 class Comment(BaseModel,models.Model):
     title = models.CharField(max_length=100)
     message = models.TextField(blank=True, null=True)
@@ -59,6 +66,7 @@ class Comment(BaseModel,models.Model):
     def __str__(self):
         return  self.user.username + '-->' + self.title
     
+# Represents a user's vote on an article.
 class voite_user(models.Model):
     STATUS_CHOICE = [
     ('5', "Excellent"),

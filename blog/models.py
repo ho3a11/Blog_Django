@@ -1,3 +1,3 @@
 from django.db import models
 
-# Create your models here.
+# Define models for the blog application here.
